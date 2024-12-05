@@ -1,0 +1,13 @@
+
+public class LLUSE {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Node<Integer> node1=new Node<>(10);
+		System.out.println(node1.data);
+		System.out.println(node1.next);
+		
+
+	}
+
+}

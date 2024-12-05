@@ -1,0 +1,23 @@
+package vechile;
+class Car extends Vehicle{
+    public static void main(String[] args) {
+        Vehicle v = new Vehicle();
+        v.colour = "white";
+        v.set(1010) ;
+        System.out.println(v.colour + " " + v.get());
+    }
+}
+//public class Car extends Vechile {
+////	String color;
+////	int maxSpeed;
+//	
+//	int numGears;
+//	boolean isConvertible;
+//	
+//    public void printCar() {
+//    	System.out.println(color);
+//    	System.out.println(maxSpeed);
+//    	System.out.println(numGears);
+//    	System.out.println(isConvertible);
+//    }
+//}

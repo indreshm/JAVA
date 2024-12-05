@@ -1,0 +1,101 @@
+package TCScodevita;
+import java.util.*;
+class Position {
+    int x, y, water;
+
+    Position(int x, int y, int water) {
+        this.x = x;
+        this.y = y;
+        this.water = water;
+    }
+}
+
+public class DesertQueen {
+	
+	public static int minimumWater(char[][] grid, int N, int startX, int startY, int endX, int endY) {
+        int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        boolean[][] visited = new boolean[N][N];
+        PriorityQueue<Position> pq = new PriorityQueue<>(Comparator.comparingInt(pos -> pos.water));
+
+        pq.offer(new Position(startX, startY, 0));
+
+        while (!pq.isEmpty()) {
+            Position current = pq.poll();
+
+            if (current.x == endX && current.y == endY) {
+                return current.water;
+            }
+
+            if (visited[current.x][current.y]) continue;
+            visited[current.x][current.y] = true;
+
+            for (int[] direction : directions) {
+                int newX = current.x + direction[0];
+                int newY = current.y + direction[1];
+
+                if (isValid(newX, newY, N, grid, visited)) {
+                    int additionalWater = (grid[current.x][current.y] == 'T' && grid[newX][newY] == 'T') ? 0 : 1;
+                    pq.offer(new Position(newX, newY, current.water + additionalWater));
+                }
+            }
+        }
+
+        return -1; // No valid path found
+    }
+	
+    public static boolean isValid(int x, int y, int N, char[][] grid, boolean[][] visited) {
+        return x >= 0 && y >= 0 && x < N && y < N && grid[x][y] != 'M' && !visited[x][y];
+    }
+    
+	public static void main(String[] args) {
+		 Scanner sc = new Scanner(System.in);
+	        try {
+	            int N = sc.nextInt();
+	            sc.nextLine();
+
+	            if (N <= 0 || N > 25) {
+	                System.out.println("Invalid grid size.");
+	                return;
+	            }
+
+	            char[][] grid = new char[N][N];
+	            int startX = -1, startY = -1, endX = -1, endY = -1;
+
+	            for (int i = 0; i < N; i++) {
+	                String[] row = sc.nextLine().split(" ");
+	                if (row.length != N) {
+	                    System.out.println("Invalid input.");
+	                    return;
+	                }
+
+	                for (int j = 0; j < N; j++) {
+	                    grid[i][j] = row[j].charAt(0);
+	                    if (grid[i][j] == 'S') {
+	                        startX = i;
+	                        startY = j;
+	                    } else if (grid[i][j] == 'E') {
+	                        endX = i;
+	                        endY = j;
+	                    } else if (grid[i][j] != 'D' && grid[i][j] != 'T' && grid[i][j] != 'M') {
+	                        System.out.println("Invalid grid element: " + grid[i][j]);
+	                        return;
+	                    }
+	                }
+	            }
+
+	            if (startX == -1 || startY == -1 || endX == -1 || endY == -1) {
+	                System.out.println("Missing start or end position.");
+	                return;
+	            }
+
+	            int result = minimumWater(grid, N, startX, startY, endX, endY);
+	            System.out.println(result);
+
+	        } catch (Exception e) {
+	            System.out.println("Invalid input. Please check the format.");
+	        } finally {
+	            sc.close();
+	        }
+	}
+
+}

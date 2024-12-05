@@ -1,0 +1,84 @@
+package TCScodevita;
+import java.util.*;
+
+public class LoopMaster {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Read number of lines in the command set
+        int n = Integer.parseInt(sc.nextLine());
+        List<String> commands = new ArrayList<>();
+
+        // Read commands
+        for (int i = 0; i < n; i++) {
+            commands.add(sc.nextLine().trim());
+        }
+
+        // Output result by processing commands
+        processCommands(commands);
+    }
+
+    public static void processCommands(List<String> commands) {
+        Stack<Integer> loopStack = new Stack<>();
+        Stack<Integer> currentIteration = new Stack<>();
+        StringBuilder output = new StringBuilder();
+
+        int i = 0;
+        while (i < commands.size()) {
+            String command = commands.get(i);
+
+            if (command.startsWith("for")) {
+                // Parse the loop count
+                int times = Integer.parseInt(command.split(" ")[1]);
+                loopStack.push(times);
+                currentIteration.push(0);
+                i++;
+            } else if (command.equals("do")) {
+                i++;
+            } else if (command.equals("done")) {
+                // Increment the current loop's iteration
+                int lastIteration = currentIteration.pop() + 1;
+                currentIteration.push(lastIteration);
+
+                if (lastIteration >= loopStack.peek()) {
+                    loopStack.pop();
+                    currentIteration.pop();
+                }
+                i++;
+            } else if (command.startsWith("print")) {
+                // Print the statement
+                String toPrint = command.substring(7, command.length() - 1);
+                output.append(toPrint).append("\n");
+                i++;
+            } else if (command.startsWith("continue")) {
+                // Handle continue N
+                int n = Integer.parseInt(command.split(" ")[1]);
+                if (currentIteration.peek() + 1 == n) {
+                    // Skip remaining commands in this iteration
+                    while (!commands.get(i).equals("done")) {
+                        i++;
+                    }
+                } else {
+                    i++;
+                }
+            } else if (command.startsWith("break")) {
+                // Handle break N
+                int n = Integer.parseInt(command.split(" ")[1]);
+                if (currentIteration.peek() + 1 == n) {
+                    // Exit current loop
+                    while (!commands.get(i).equals("done")) {
+                        i++;
+                    }
+                    loopStack.pop();
+                    currentIteration.pop();
+                }
+                i++;
+            } else {
+                i++;
+            }
+        }
+
+        
+        System.out.print(output.toString());
+    }
+}

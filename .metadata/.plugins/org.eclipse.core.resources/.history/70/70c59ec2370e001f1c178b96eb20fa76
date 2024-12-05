@@ -1,0 +1,14 @@
+
+public class BalancedBTs {
+	
+	public static int countBalancedBTs(int h) {
+		//base case
+		
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

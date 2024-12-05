@@ -1,0 +1,54 @@
+package TCScodevita;
+import java.util.Scanner;
+
+public class LoopMaster {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        scanner.nextLine(); 
+
+        String[] commands = new String[n];
+        for (int i = 0; i < n; i++) {
+            commands[i] = scanner.nextLine();
+        }
+
+        int loopDepth = 0;
+        int[] loopCounters = new int[10]; 
+        int[] continueCounters = new int[10];
+
+        for (String command : commands) {
+            String[] parts = command.split(" ");
+
+            switch (parts[0]) {
+                case "for":
+                    loopCounters[loopDepth] = Integer.parseInt(parts[2]);
+                    continueCounters[loopDepth] = 0;
+                    loopDepth++;
+                    break;
+                case "do":
+                    break;
+                case "done":
+                    loopDepth--;
+                    break;
+                case "break":
+                    if (loopCounters[loopDepth] <= Integer.parseInt(parts[1])) {
+                        break outerLoop; 
+                    }
+                    break;
+                case "continue":
+                    if (loopCounters[loopDepth] <= Integer.parseInt(parts[1])) {
+                        continueCounters[loopDepth] = Integer.parseInt(parts[1]);
+                    }
+                    break;
+                case "print":
+                    if (continueCounters[loopDepth] == 0) {
+                        System.out.println(parts[1]);
+                    }
+                    continueCounters[loopDepth]--;
+                    break;
+            }
+        }
+
+        scanner.close();
+    }
+}

@@ -1,0 +1,11 @@
+package vechile;
+
+public class VechileUse {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+        Vechile v = new Vechile();
+        v.print();
+	}
+
+}

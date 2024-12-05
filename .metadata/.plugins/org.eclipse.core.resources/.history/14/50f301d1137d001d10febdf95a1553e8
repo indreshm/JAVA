@@ -1,0 +1,9 @@
+package vechile;
+
+public class Car extends Vechile {
+//	String color;
+//	int maxSpeed;
+	
+	int numGears;
+	boolean isConertible;
+}

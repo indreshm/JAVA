@@ -1,0 +1,27 @@
+package vechile;
+class Car extends Vehicle{
+    void print(){
+        System.out.print("Car class");
+    }
+
+    public static void main(String[] args){   
+        Car obj1 = new Car();
+        obj1.print();
+        Vehicle obj2 = new Vehicle();
+        obj2.print();  
+    }
+}
+//public class Car extends Vechile {
+////	String color;
+////	int maxSpeed;
+//	
+//	int numGears;
+//	boolean isConvertible;
+//	
+//    public void printCar() {
+//    	System.out.println(color);
+//    	System.out.println(maxSpeed);
+//    	System.out.println(numGears);
+//    	System.out.println(isConvertible);
+//    }
+//}

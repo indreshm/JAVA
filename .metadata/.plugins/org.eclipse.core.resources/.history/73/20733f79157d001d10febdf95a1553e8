@@ -1,0 +1,11 @@
+package vechile;
+
+public class Vechile {
+    String color;
+    int maxSpeed;
+    
+    public void print() {
+    	System.out.println(color);
+    	System.out.println(maxSpeed);
+    }
+}

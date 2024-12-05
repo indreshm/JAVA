@@ -1,0 +1,30 @@
+package vechile;
+class Vehicle{
+    String colour;
+    private int number;
+    void set(int number)
+    {
+        number=number;
+    }
+    int get()
+    {
+        return number;
+    }
+}
+//public class Vechile {
+//    String color;
+//    private int maxSpeed;
+//    
+//    public int getMaxSpeed() {
+//    	return maxSpeed;
+//    }
+//    
+//    public void setMaxSpeed(int maxSpeed) {
+//    	this.maxSpeed= maxSpeed;
+//    }
+//    
+//    public void print() {
+//    	System.out.println(color);
+//    	System.out.println(maxSpeed);
+//    }
+//}

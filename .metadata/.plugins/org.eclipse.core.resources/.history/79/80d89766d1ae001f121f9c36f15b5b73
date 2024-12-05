@@ -1,0 +1,73 @@
+package TCScodevita;
+import java.util.*;
+class Position {
+    int x, y, water;
+
+    Position(int x, int y, int water) {
+        this.x = x;
+        this.y = y;
+        this.water = water;
+    }
+}
+public class DesertQueen {
+	
+    public static int minimumWater(char[][] grid, int N, int startX, int startY, int endX, int endY) {
+        int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        boolean[][] visited = new boolean[N][N];
+        PriorityQueue<Position> pq = new PriorityQueue<>(Comparator.comparingInt(pos -> pos.water));
+
+        pq.offer(new Position(startX, startY, 0));
+
+        while (!pq.isEmpty()) {
+            Position current = pq.poll();
+
+            if (current.x == endX && current.y == endY) {
+                return current.water;
+            }
+
+            if (visited[current.x][current.y]) continue;
+            visited[current.x][current.y] = true;
+
+            for (int[] direction : directions) {
+                int newX = current.x + direction[0];
+                int newY = current.y + direction[1];
+
+                if (newX >= 0 && newY >= 0 && newX < N && newY < N && grid[newX][newY] != 'M' && !visited[newX][newY]) {
+                    int additionalWater = (grid[current.x][current.y] == 'T' && grid[newX][newY] == 'T') ? 0 : 1;
+                    pq.offer(new Position(newX, newY, current.water + additionalWater));
+                }
+            }
+        }
+
+        return -1;
+    }
+	public DesertQueen() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+        sc.nextLine();
+
+        char[][] grid = new char[N][N];
+        int startX = 0, startY = 0, endX = 0, endY = 0;
+
+        for (int i = 0; i < N; i++) {
+            String[] row = sc.nextLine().split(" ");
+            for (int j = 0; j < N; j++) {
+                grid[i][j] = row[j].charAt(0);
+                if (grid[i][j] == 'S') {
+                    startX = i;
+                    startY = j;
+                } else if (grid[i][j] == 'E') {
+                    endX = i;
+                    endY = j;
+                }
+            }
+        }
+
+        System.out.println(minimumWater(grid, N, startX, startY, endX, endY));
+	}
+
+}
